@@ -69,7 +69,15 @@
       item.setAttribute("data-reveal", "");
 
       const logo = el("div", "experience__logo");
-      logo.textContent = job.logo || job.company.slice(0, 2).toUpperCase();
+      if (job.logoUrl) {
+        const img = el("img", "experience__logo-img");
+        img.src = job.logoUrl;
+        img.alt = job.company + " logo";
+        img.loading = "lazy";
+        logo.appendChild(img);
+      } else {
+        logo.textContent = job.logo || job.company.slice(0, 2).toUpperCase();
+      }
       item.appendChild(logo);
 
       const body = el("div", "experience__body");

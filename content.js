@@ -46,6 +46,7 @@ const CONTENT = {
       period: "Dec 2025 – Present",
       location: "Dublin, Ireland",
       logo: "AWS",
+      logoUrl: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
       points: [
         "Appointed AWS SME for EC2 Linux and ElastiCache; partner with enterprise stakeholders to align AWS solutions with business objectives",
         "Drive adoption of automated remediation pipelines (AWS Systems Manager Automation) and chaos engineering workflows (Gremlin), reducing MTTR by 35% for critical workloads",
@@ -62,6 +63,7 @@ const CONTENT = {
       period: "Apr 2023 – Dec 2025",
       location: "Dublin, Ireland",
       logo: "AWS",
+      logoUrl: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
       points: [
         "Earned AWS SME in EC2 Linux recognition for expertise in troubleshooting complex Linux environments",
         "Partnered with TAMs and stakeholders to reduce escalation time by 50% through deep-dive performance analysis (perf, tcpdump) and Bash/Python automation",
@@ -79,6 +81,7 @@ const CONTENT = {
       period: "Oct 2021 – Apr 2023",
       location: "Dublin, Ireland",
       logo: "AWS",
+      logoUrl: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
       points: [
         "Resolved EC2, S3, VPC networking, and ElastiCache issues for Linux-based workloads",
         "Reduced repeat escalations by 40% through documentation playbooks and root-cause analysis",
@@ -93,6 +96,7 @@ const CONTENT = {
       period: "Apr 2020 – Oct 2021",
       location: "Dublin, Ireland",
       logo: "Amazon",
+      logoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
       points: [
         "Frontline customer support across multiple Amazon channels, handling high-volume queries",
         "Developed strong problem-solving and communication skills in a fast-paced environment",
