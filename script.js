@@ -913,6 +913,11 @@
     initAnimatedCounters();
     initMouseGlow();
     initStaggeredReveal();
+    initTextScramble();
+    initMagneticButtons();
+    initParallaxCards();
+    initTypingSubtitle();
+    initCursorTrail();
   }
 
   // ========================================================
@@ -993,6 +998,134 @@
       items.forEach((item, i) => {
         item.style.transitionDelay = (i * 0.05) + "s";
       });
+    });
+  }
+
+  // Text scramble effect on section titles when they come into view
+  function initTextScramble() {
+    if (prefersReducedMotion) return;
+    const chars = "!<>-_\\/[]{}—=+*^?#_";
+    function scramble(el) {
+      const original = el.textContent;
+      const length = original.length;
+      let iteration = 0;
+      const interval = setInterval(() => {
+        el.textContent = original.split("").map((char, i) => {
+          if (i < iteration) return original[i];
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join("");
+        iteration += 1 / 2;
+        if (iteration >= length) {
+          el.textContent = original;
+          clearInterval(interval);
+        }
+      }, 25);
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          scramble(entry.target);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    $$(".section__title").forEach((t) => io.observe(t));
+  }
+
+  // Magnetic effect on buttons — they pull toward cursor
+  function initMagneticButtons() {
+    if (prefersReducedMotion) return;
+    $$(".btn").forEach((btn) => {
+      btn.addEventListener("mousemove", (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+      });
+      btn.addEventListener("mouseleave", () => {
+        btn.style.transform = "";
+        btn.style.transition = "transform 0.3s ease";
+        setTimeout(() => { btn.style.transition = ""; }, 300);
+      });
+    });
+  }
+
+  // Parallax depth on cards based on scroll position
+  function initParallaxCards() {
+    if (prefersReducedMotion) return;
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (ticking) return;
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        $$(".experience__item, .project, .cert").forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const center = rect.top + rect.height / 2;
+          const viewCenter = window.innerHeight / 2;
+          const offset = (center - viewCenter) * 0.02;
+          card.style.transform = `translateY(${-offset}px)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    });
+  }
+
+  // Typing effect for subtitle — cycles through roles
+  function initTypingSubtitle() {
+    if (prefersReducedMotion) return;
+    const subtitleEl = $(".hero__subtitle");
+    if (!subtitleEl) return;
+    const phrases = [
+      CONTENT.hero.subtitle,
+      "EC2 Linux SME · ElastiCache SME · Dublin 🇮🇪",
+      "Debugging what others can't since 2019",
+      "Reliability engineer by day, code tinkerer by night"
+    ];
+    let phraseIdx = 0;
+    let charIdx = 0;
+    let deleting = false;
+    let pauseTimer = null;
+
+    function type() {
+      const current = phrases[phraseIdx];
+      if (!deleting) {
+        subtitleEl.textContent = current.slice(0, charIdx + 1);
+        charIdx++;
+        if (charIdx >= current.length) {
+          pauseTimer = setTimeout(() => { deleting = true; type(); }, 3000);
+          return;
+        }
+        setTimeout(type, 50 + Math.random() * 30);
+      } else {
+        subtitleEl.textContent = current.slice(0, charIdx);
+        charIdx--;
+        if (charIdx <= 0) {
+          deleting = false;
+          phraseIdx = (phraseIdx + 1) % phrases.length;
+          setTimeout(type, 500);
+          return;
+        }
+        setTimeout(type, 25);
+      }
+    }
+    // Start cycling after initial display
+    setTimeout(() => { deleting = true; type(); }, 4000);
+  }
+
+  // Cursor trail particles
+  function initCursorTrail() {
+    if (prefersReducedMotion) return;
+    let throttle = 0;
+    document.addEventListener("mousemove", (e) => {
+      throttle++;
+      if (throttle % 3 !== 0) return;
+      const dot = document.createElement("div");
+      dot.className = "cursor-dot";
+      dot.style.left = e.clientX + "px";
+      dot.style.top = e.clientY + "px";
+      document.body.appendChild(dot);
+      setTimeout(() => dot.remove(), 600);
     });
   }
 
