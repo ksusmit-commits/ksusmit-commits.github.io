@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Susmit Kallurkar — Cloud Support Engineer II at AWS. EC2 Linux escalation engineer based in Dublin, Ireland." />
+  <meta name="author" content="Susmit Kallurkar" />
+  <title>Susmit Kallurkar — Cloud Support Engineer II @ AWS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <!-- Animated background orbs -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+    <div class="orb orb--3"></div>
+  </div>
+  <!-- ============================ NAV ============================ -->
+  <nav class="nav" aria-label="Primary">
+    <div class="nav__container">
+      <a href="#hero" class="nav__logo" id="nav-logo" aria-label="Home">
+        <span class="nav__bracket">&lt;</span>SK<span class="nav__bracket">/&gt;</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav__theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="nav__theme-icon">🌙</span>
+      </button>
+      <button class="nav__menu-toggle" id="menu-toggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================ HERO ============================ -->
+  <section id="hero" class="hero">
+    <div class="hero__container">
+      <p class="hero__greeting" data-reveal></p>
+      <h1 class="hero__name" data-reveal>
+        <span id="hero-name"></span><span class="hero__cursor">_</span>
+      </h1>
+      <h2 class="hero__title" data-reveal></h2>
+      <p class="hero__subtitle" data-reveal></p>
+
+      <div class="hero__cta" data-reveal>
+        <a id="cta-primary" class="btn btn--primary" href="#contact">Get in Touch</a>
+        <a id="cta-secondary" class="btn btn--secondary" href="#experience">View Experience</a>
+        <a id="cta-tertiary" class="btn btn--ghost" href="#" style="display:none"></a>
+      </div>
+
+      <div class="hero__terminal" data-reveal>
+        <div class="terminal__header">
+          <span class="terminal__dot terminal__dot--red"></span>
+          <span class="terminal__dot terminal__dot--yellow"></span>
+          <span class="terminal__dot terminal__dot--green"></span>
+          <span class="terminal__title">susmit@aws ~ %</span>
+        </div>
+        <div class="terminal__body">
+          <p class="terminal__command" id="terminal-command"></p>
+          <div class="terminal__output" id="terminal-output"></div>
+          <p class="terminal__prompt">$ <span class="terminal__blink">▌</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPERIENCE ============================ -->
+  <section id="experience" class="section">
+    <div class="section__container">
+      <h2 class="section__title" data-reveal>Experience</h2>
+      <div class="experience__list" id="experience-list"></div>
+    </div>
+  </section>
+
+  <!-- ============================ SKILLS ============================ -->
+  <section id="skills" class="section section--alt">
+    <div class="section__container">
+      <h2 class="section__title" data-reveal>Skills</h2>
+      <div class="skills__grid" id="skills-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================ CERTIFICATIONS ============================ -->
+  <section id="certifications" class="section">
+    <div class="section__container">
+      <h2 class="section__title" data-reveal>Certifications</h2>
+      <div class="cert__grid" id="cert-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================ PROJECTS ============================ -->
+  <section id="projects" class="section section--alt">
+    <div class="section__container">
+      <h2 class="section__title" data-reveal>Projects</h2>
+      <div class="projects__grid" id="projects-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================ PUBLICATIONS ============================ -->
+  <section id="publications" class="section">
+    <div class="section__container">
+      <h2 class="section__title" data-reveal>Publications &amp; Contributions</h2>
+      <div class="publications__grid" id="publications-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================ EDUCATION (optional) ============================ -->
+  <section id="education" class="section section--alt">
+    <div class="section__container">
+      <h2 class="section__title" data-reveal>Education</h2>
+      <div class="education__grid" id="education-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================ CONTACT ============================ -->
+  <section id="contact" class="section">
+    <div class="section__container">
+      <h2 class="section__title" data-reveal>Contact</h2>
+      <p class="contact__intro" id="contact-intro" data-reveal></p>
+      <div class="contact__grid" id="contact-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="footer">
+    <div class="footer__container">
+      <p id="footer-copyright"></p>
+      <p class="footer__tagline" id="footer-tagline"></p>
+      <button class="footer__info" id="footer-info" aria-label="About this site">ℹ Under the Hood</button>
+    </div>
+  </footer>
+
+  <!-- ============================ DEBUG PANEL ============================ -->
+  <div class="debug-panel" id="debug-panel" aria-hidden="true">
+    <div class="debug-panel__content">
+      <button class="debug-panel__close" id="debug-panel-close" aria-label="Close">×</button>
+      <h3>Under the Hood</h3>
+      <div class="debug-panel__section">
+        <h4>⚡ Performance</h4>
+        <p id="debug-perf">Measuring…</p>
+      </div>
+      <div class="debug-panel__section">
+        <h4>🛠 Built With</h4>
+        <div class="debug-panel__tech" id="debug-tech"></div>
+      </div>
+      <div class="debug-panel__section">
+        <h4>♿ Accessibility</h4>
+        <p id="debug-a11y"></p>
+      </div>
+      <div class="debug-panel__section">
+        <h4>🥚 Easter Eggs</h4>
+        <ol class="debug-panel__eggs" id="debug-eggs">
+          <li data-egg="konami"><span class="egg__status">○</span> Konami code — ↑↑↓↓←→←→BA for a surprise</li>
+          <li data-egg="logo"><span class="egg__status">○</span> Logo clicks — click &lt;SK/&gt; five times fast</li>
+          <li data-egg="sudo"><span class="egg__status">○</span> Type <code>sudo</code> anywhere on the page</li>
+          <li data-egg="console"><span class="egg__status">○</span> Open the browser console</li>
+          <li data-egg="tab"><span class="egg__status">○</span> Switch to another tab and watch the title</li>
+          <li data-egg="rightclick"><span class="egg__status">○</span> Right-click anywhere on the page</li>
+          <li data-egg="footer"><span class="egg__status">○</span> Hover over the copyright text in the footer</li>
+          <li data-egg="terminal"><span class="egg__status">○</span> Wait for the terminal to finish typing</li>
+        </ol>
+      </div>
+      <p class="debug-panel__note" id="debug-note"></p>
+    </div>
+  </div>
+
+  <!-- Back-to-top button -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+  <!-- Scripts -->
+  <script src="content.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
