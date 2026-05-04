@@ -152,8 +152,7 @@ const CONTENT = {
       { name: "Bash", icon: "💻", desc: "Shell scripting for automation, log parsing, and operational tooling." },
       { name: "Python", icon: "🐍", desc: "Automation scripts, boto3 SDK, data processing, and CLI tools." },
       { name: "Go", icon: "🐹", desc: "Systems programming and CLI tool development." },
-      { name: "Git", icon: "🌿", desc: "Version control workflows — branching strategies, rebasing, and CI/CD integration." },
-      { name: "SQL", icon: "🗃️", desc: "Query optimization, schema design, and database troubleshooting across RDS and Aurora." }
+      { name: "Git", icon: "🌿", desc: "Version control workflows — branching strategies, rebasing, and CI/CD integration." }
     ],
     networking: [
       { name: "TCP/IP", icon: "🌐", desc: "Packet analysis with tcpdump, connection troubleshooting, and MTU optimization." },
