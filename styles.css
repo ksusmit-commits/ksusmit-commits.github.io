@@ -1073,9 +1073,3 @@ body {
   max-width: 100%;
   align-self: center;
 }
-@media (max-width: 900px) {
-  .hero__grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-}
