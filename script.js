@@ -95,6 +95,7 @@
 
   function renderSkills() {
     const grid = $("#skills-grid");
+    const highlights = ["AWS", "EC2", "ElastiCache", "Linux", "Kubernetes", "Terraform", "Python"];
     Object.entries(CONTENT.skills).forEach(([group, items]) => {
       const groupEl = el("div", "skills__group");
       groupEl.setAttribute("data-reveal", "");
@@ -104,7 +105,8 @@
 
       const items_wrap = el("div", "skills__items");
       items.forEach((s) => {
-        const chip = el("span", "skill");
+        const isHighlight = highlights.includes(s.name);
+        const chip = el("span", isHighlight ? "skill skill--highlight" : "skill");
         chip.textContent = `${s.icon} ${s.name}`;
         if (s.desc) {
           chip.setAttribute("data-skill", s.name);

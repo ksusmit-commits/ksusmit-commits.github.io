@@ -1073,3 +1073,48 @@ body {
   max-width: 100%;
   align-self: center;
 }
+
+/* ------------------------------- ENHANCED SKILLS SECTION ------------------------------- */
+.skills__group {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+.skills__group:hover {
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+}
+
+.skill {
+  position: relative;
+  overflow: hidden;
+}
+.skill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(126, 231, 135, 0.1), rgba(88, 166, 255, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+}
+.skill:hover::before {
+  opacity: 1;
+}
+
+/* Highlight SME/primary skills */
+.skill--highlight {
+  border-color: var(--accent);
+  background: rgba(126, 231, 135, 0.06);
+  box-shadow: 0 0 12px rgba(126, 231, 135, 0.1);
+  font-weight: 600;
+}
+.skill--highlight::after {
+  content: "★";
+  margin-left: 0.25rem;
+  font-size: 0.7rem;
+  color: var(--accent);
+}
