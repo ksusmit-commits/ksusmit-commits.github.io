@@ -29,15 +29,11 @@ const CONTENT = {
   // ABOUT (shown in the hero terminal)
   // ---------------------------------------------------------------
   about: [
-    "AWS Cloud Support Engineer with 6+ years at Amazon, designing, operating,",
-    "and optimizing mission-critical cloud infrastructure for enterprise customers.",
-    "Dual AWS SME — EC2 Linux (2024) and ElastiCache (2026).",
+    "Cloud Support Engineer II @ AWS | 6+ years at Amazon | Dublin, Ireland",
+    "Dual SME — EC2 Linux & ElastiCache",
     "",
-    "I spend my days on the escalations where standard runbooks have run out —",
-    "complex EC2 Linux investigations, ElastiCache reliability work, and the",
-    "deep cross-service problems that span compute, storage, and network.",
-    "",
-    "Reliability-first by default. Automation and observability for the rest."
+    "I handle the escalations where runbooks run out.",
+    "Reliability-first. Automation for the rest."
   ],
 
   // ---------------------------------------------------------------
