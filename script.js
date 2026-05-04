@@ -91,6 +91,11 @@
       items.forEach((s) => {
         const chip = el("span", "skill");
         chip.textContent = `${s.icon} ${s.name}`;
+        if (s.desc) {
+          chip.setAttribute("data-skill", s.name);
+          chip.setAttribute("data-desc", s.desc);
+          chip.style.cursor = "pointer";
+        }
         items_wrap.appendChild(chip);
       });
       groupEl.appendChild(items_wrap);
@@ -103,17 +108,23 @@
     CONTENT.certifications.forEach((c) => {
       const card = c.link ? el("a", "cert") : el("div", "cert");
       card.setAttribute("data-reveal", "");
+      card.setAttribute("data-tilt", "");
+      card.setAttribute("data-glow", "");
       if (c.link) {
         card.href = c.link;
         card.target = "_blank";
         card.rel = "noopener";
       }
-      card.appendChild(el("div", "cert__badge", c.badge || "🏅"));
-      card.appendChild(el("h3", "cert__title", c.title));
+      const inner = el("div", "tilt-inner");
+      inner.appendChild(el("div", "cert__badge", c.badge || "🏅"));
+      inner.appendChild(el("h3", "cert__title", c.title));
       const meta = [c.issuer, c.date, c.expires && `Expires ${c.expires}`]
         .filter(Boolean)
         .join(" · ");
-      card.appendChild(el("p", "cert__meta", meta));
+      inner.appendChild(el("p", "cert__meta", meta));
+      const glow = el("div", "card-glow");
+      card.appendChild(inner);
+      card.appendChild(glow);
       grid.appendChild(card);
     });
   }
@@ -123,26 +134,32 @@
     CONTENT.projects.forEach((p) => {
       const card = el("article", "project");
       card.setAttribute("data-reveal", "");
+      card.setAttribute("data-tilt", "");
+      card.setAttribute("data-glow", "");
 
-      card.appendChild(el("span", "project__id", p.id));
-      card.appendChild(el("div", "project__icon", p.icon));
-      card.appendChild(el("h3", "project__title", p.title));
-      card.appendChild(el("p", "project__description", p.description));
+      const inner = el("div", "tilt-inner");
+      inner.appendChild(el("span", "project__id", p.id));
+      inner.appendChild(el("div", "project__icon", p.icon));
+      inner.appendChild(el("h3", "project__title", p.title));
+      inner.appendChild(el("p", "project__description", p.description));
 
       const tech = el("div", "project__tech");
       p.tech.forEach((t) =>
         tech.appendChild(el("span", "project__tech-tag", t))
       );
-      card.appendChild(tech);
+      inner.appendChild(tech);
 
       if (p.link) {
         const a = el("a", "project__link", "View on GitHub →");
         a.href = p.link;
         a.target = "_blank";
         a.rel = "noopener";
-        card.appendChild(a);
+        inner.appendChild(a);
       }
 
+      const glow = el("div", "card-glow");
+      card.appendChild(inner);
+      card.appendChild(glow);
       grid.appendChild(card);
     });
   }
@@ -607,6 +624,245 @@
   // (triggered from initTerminal when typing completes)
 
   // ========================================================
+  // 9. INTERACTIVE CANVAS (particles + neural network)
+  // ========================================================
+  function initCanvas() {
+    const canvas = $("#particles");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const mouse = { x: null, y: null };
+    let particles = [];
+    let neuralNodes = [];
+    const NEURAL_SPACING = 50;
+    const NEURAL_RADIUS = 200;
+    const NEURAL_CONNECT = 90;
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener("resize", () => { resize(); initGrid(); });
+
+    document.addEventListener("mousemove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    document.addEventListener("mouseleave", () => { mouse.x = null; mouse.y = null; });
+
+    function mkParticle() {
+      return {
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        size: Math.random() * 2 + 0.5,
+        sx: (Math.random() - 0.5) * 0.4, sy: (Math.random() - 0.5) * 0.4,
+        opacity: Math.random() * 0.5 + 0.15,
+        color: Math.random() > 0.5 ? "126,231,135" : "88,166,255"
+      };
+    }
+    const count = Math.min(80, Math.floor(window.innerWidth / 15));
+    for (let i = 0; i < count; i++) particles.push(mkParticle());
+
+    function initGrid() {
+      neuralNodes = [];
+      const pageH = Math.max(document.body.scrollHeight, 4000);
+      const cols = Math.ceil(canvas.width / NEURAL_SPACING) + 1;
+      const rows = Math.ceil(pageH / NEURAL_SPACING) + 1;
+      for (let r = 0; r < rows; r++)
+        for (let c = 0; c < cols; c++)
+          neuralNodes.push({
+            x: c * NEURAL_SPACING + (Math.random() - 0.5) * 18,
+            y: r * NEURAL_SPACING + (Math.random() - 0.5) * 18
+          });
+    }
+
+    function drawParticles() {
+      for (const p of particles) {
+        p.x += p.sx; p.y += p.sy;
+        if (mouse.x !== null) {
+          const dx = p.x - mouse.x, dy = p.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120 && dist > 0) {
+            const f = (120 - dist) / 120;
+            p.x += (dx / dist) * f * 1.5;
+            p.y += (dy / dist) * f * 1.5;
+          }
+        }
+        if (p.x < 0 || p.x > canvas.width) p.sx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.sy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.color},${p.opacity})`;
+        ctx.fill();
+      }
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(126,231,135,${(1 - dist / 150) * 0.15})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function drawNeural() {
+      if (mouse.x === null || !neuralNodes.length) return;
+      const scrollY = window.scrollY;
+      const active = [];
+      for (const node of neuralNodes) {
+        const sy = node.y - scrollY;
+        if (sy < -NEURAL_RADIUS || sy > canvas.height + NEURAL_RADIUS) continue;
+        const dx = node.x - mouse.x, dy = sy - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < NEURAL_RADIUS) {
+          const intensity = 1 - dist / NEURAL_RADIUS;
+          active.push({ x: node.x, y: sy, dist, intensity });
+          ctx.beginPath();
+          ctx.arc(node.x, sy, 1.5 + intensity * 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(88,166,255,${intensity * 0.7})`;
+          ctx.fill();
+        }
+      }
+      for (let i = 0; i < active.length; i++) {
+        for (let j = i + 1; j < active.length; j++) {
+          const dx = active[i].x - active[j].x, dy = active[i].y - active[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < NEURAL_CONNECT) {
+            const alpha = Math.min(active[i].intensity, active[j].intensity) * (1 - dist / NEURAL_CONNECT) * 0.5;
+            ctx.beginPath();
+            ctx.moveTo(active[i].x, active[i].y);
+            ctx.lineTo(active[j].x, active[j].y);
+            ctx.strokeStyle = `rgba(88,166,255,${alpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+        if (active[i].dist < NEURAL_RADIUS * 0.5) {
+          ctx.beginPath();
+          ctx.moveTo(active[i].x, active[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(126,231,135,${active[i].intensity * 0.15})`;
+          ctx.lineWidth = 0.4;
+          ctx.stroke();
+        }
+      }
+      const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, NEURAL_RADIUS * 0.6);
+      grad.addColorStop(0, "rgba(88,166,255,0.04)");
+      grad.addColorStop(1, "rgba(88,166,255,0)");
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, NEURAL_RADIUS * 0.6, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawParticles();
+      drawNeural();
+      requestAnimationFrame(animate);
+    }
+    initGrid();
+    window.addEventListener("load", initGrid);
+    animate();
+  }
+
+  // ========================================================
+  // 10. 3D TILT CARDS
+  // ========================================================
+  function initTilt() {
+    $$("[data-tilt]").forEach((card) => {
+      const inner = $(".tilt-inner", card);
+      if (!inner) return;
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left, y = e.clientY - rect.top;
+        const rx = ((y - rect.height / 2) / (rect.height / 2)) * -8;
+        const ry = ((x - rect.width / 2) / (rect.width / 2)) * 8;
+        inner.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        inner.style.transform = "rotateX(0) rotateY(0) scale(1)";
+      });
+    });
+  }
+
+  // ========================================================
+  // 11. SKILL MODAL
+  // ========================================================
+  function initSkillModal() {
+    const overlay = $("#skillModal");
+    const titleEl = $("#skillModalTitle");
+    const descEl = $("#skillModalDesc");
+    if (!overlay) return;
+    $$("[data-skill]").forEach((badge) => {
+      badge.addEventListener("click", () => {
+        titleEl.textContent = badge.getAttribute("data-skill");
+        descEl.textContent = badge.getAttribute("data-desc");
+        overlay.classList.add("is-open");
+        overlay.setAttribute("aria-hidden", "false");
+      });
+    });
+    const close = () => { overlay.classList.remove("is-open"); overlay.setAttribute("aria-hidden", "true"); };
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
+    $(".skill-modal__close", overlay).addEventListener("click", close);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+  }
+
+  // ========================================================
+  // 12. CARD GLOW FOLLOW
+  // ========================================================
+  function initCardGlow() {
+    $$("[data-glow]").forEach((card) => {
+      const glow = $(".card-glow", card);
+      if (!glow) return;
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        glow.style.setProperty("--glow-x", ((e.clientX - rect.left) / rect.width * 100) + "%");
+        glow.style.setProperty("--glow-y", ((e.clientY - rect.top) / rect.height * 100) + "%");
+      });
+    });
+  }
+
+  // ========================================================
+  // 13. PARALLAX ORBS
+  // ========================================================
+  function initParallaxOrbs() {
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const y = window.scrollY;
+          $$(".orb").forEach((orb, i) => {
+            orb.style.transform = `translateY(${y * (0.02 + i * 0.01)}px)`;
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  // ========================================================
+  // 14. ACTIVE NAV ON SCROLL
+  // ========================================================
+  function initActiveNav() {
+    const sections = $$(".section, .hero");
+    const anchors = $$(".nav__links a");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+          anchors.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + id));
+        }
+      });
+    }, { threshold: 0.3, rootMargin: "-70px 0px 0px 0px" });
+    sections.forEach((s) => io.observe(s));
+  }
+
+  // ========================================================
   // INIT
   // ========================================================
   function init() {
@@ -629,6 +885,12 @@
     initTerminal();
     initBackToTop();
     initDebugPanel();
+    initCanvas();
+    initTilt();
+    initSkillModal();
+    initCardGlow();
+    initParallaxOrbs();
+    initActiveNav();
 
     // 3. eggs
     initKonami();

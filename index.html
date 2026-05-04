@@ -15,11 +15,23 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%3C/text%3E%3C/svg%3E" />
 </head>
 <body>
+  <!-- Interactive canvas background -->
+  <canvas id="particles" aria-hidden="true"></canvas>
+
   <!-- Animated background orbs -->
   <div class="bg-orbs" aria-hidden="true">
     <div class="orb orb--1"></div>
     <div class="orb orb--2"></div>
     <div class="orb orb--3"></div>
+  </div>
+
+  <!-- Skill modal -->
+  <div class="skill-modal" id="skillModal" aria-hidden="true">
+    <div class="skill-modal__content">
+      <button class="skill-modal__close" aria-label="Close">×</button>
+      <h3 class="skill-modal__title" id="skillModalTitle"></h3>
+      <p class="skill-modal__desc" id="skillModalDesc"></p>
+    </div>
   </div>
   <!-- ============================ NAV ============================ -->
   <nav class="nav" aria-label="Primary">

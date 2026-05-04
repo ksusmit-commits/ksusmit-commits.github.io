@@ -111,46 +111,45 @@ const CONTENT = {
   // ---------------------------------------------------------------
   skills: {
     cloud: [
-      { name: "AWS", icon: "☁️" },
-      { name: "EC2", icon: "🖥️" },
-      { name: "ElastiCache", icon: "⚡" },
-      { name: "S3", icon: "🪣" },
-      { name: "EBS", icon: "💾" },
-      { name: "VPC", icon: "🌐" },
-      { name: "IAM", icon: "🔐" },
-      { name: "CloudWatch", icon: "📊" },
-      { name: "Systems Manager", icon: "🛠️" },
-      { name: "Migration Services", icon: "🚚" }
+      { name: "AWS", icon: "☁️", desc: "6+ years building and troubleshooting on AWS across compute, storage, networking, and caching services." },
+      { name: "EC2", icon: "🖥️", desc: "SME-level expertise in EC2 Linux — instance lifecycle, performance tuning, EBS optimization, and deep OS-level debugging." },
+      { name: "ElastiCache", icon: "⚡", desc: "SME for ElastiCache — Redis/Memcached cluster design, failover analysis, and performance optimization." },
+      { name: "S3", icon: "🪣", desc: "Object storage architecture, lifecycle policies, cross-region replication, and access control." },
+      { name: "EBS", icon: "💾", desc: "Volume performance analysis, IOPS tuning, snapshot management, and io2 Block Express." },
+      { name: "VPC", icon: "🌐", desc: "Network design with subnets, route tables, NACLs, security groups, and VPC peering." },
+      { name: "IAM", icon: "🔐", desc: "Identity and access management — policies, roles, cross-account access, and least-privilege design." },
+      { name: "CloudWatch", icon: "📊", desc: "Metrics, alarms, dashboards, Logs Insights, and automated remediation via CloudWatch Actions." },
+      { name: "Systems Manager", icon: "🛠️", desc: "Automation documents, Run Command, Session Manager, and patch management at scale." },
+      { name: "Migration Services", icon: "🚚", desc: "MGN replication agent configuration, cutover planning, and lift-and-shift migrations." }
     ],
     infrastructure_as_code: [
-      { name: "Terraform", icon: "🏗️" },
-      { name: "CloudFormation", icon: "📜" },
-      { name: "Ansible", icon: "⚙️" }
+      { name: "Terraform", icon: "🏗️", desc: "Multi-region IaC with modules, state management, and drift detection." },
+      { name: "CloudFormation", icon: "📜", desc: "Stack design, nested stacks, custom resources, and change sets." },
+      { name: "Ansible", icon: "⚙️", desc: "Configuration management, playbooks, and fleet-wide automation." }
     ],
     containers_and_orchestration: [
-      { name: "Kubernetes", icon: "☸️" },
-      { name: "Docker", icon: "🐳" }
+      { name: "Kubernetes", icon: "☸️", desc: "Pod scheduling, service mesh, and EKS cluster operations." },
+      { name: "Docker", icon: "🐳", desc: "Container builds, multi-stage Dockerfiles, and image optimization." }
     ],
     observability: [
-      { name: "Prometheus", icon: "🔥" },
-      { name: "Grafana", icon: "📈" },
-      { name: "CloudWatch", icon: "📊" },
-      { name: "Datadog", icon: "🐕" },
-      { name: "Chaos Engineering (Gremlin)", icon: "👹" },
-      { name: "SLO / SLI design", icon: "🎯" }
+      { name: "Prometheus", icon: "🔥", desc: "Metrics collection, PromQL queries, and alerting rules for SLO tracking." },
+      { name: "Grafana", icon: "📈", desc: "Dashboard design for real-time SLI visualization across enterprise workloads." },
+      { name: "Datadog", icon: "🐕", desc: "APM, log aggregation, and infrastructure monitoring." },
+      { name: "Chaos Engineering", icon: "👹", desc: "Gremlin-based fault injection to validate system resilience." },
+      { name: "SLO / SLI design", icon: "🎯", desc: "Error budgeting, burn-rate alerts, and reliability target frameworks." }
     ],
     os_and_scripting: [
-      { name: "Linux", icon: "🐧" },
-      { name: "Bash", icon: "💻" },
-      { name: "Python", icon: "🐍" },
-      { name: "Go", icon: "🐹" }
+      { name: "Linux", icon: "🐧", desc: "Deep system administration — kernel tuning, systemd, performance profiling with perf and strace." },
+      { name: "Bash", icon: "💻", desc: "Shell scripting for automation, log parsing, and operational tooling." },
+      { name: "Python", icon: "🐍", desc: "Automation scripts, boto3 SDK, data processing, and CLI tools." },
+      { name: "Go", icon: "🐹", desc: "Systems programming and CLI tool development." }
     ],
     networking: [
-      { name: "TCP/IP", icon: "🌐" },
-      { name: "DNS", icon: "🌐" },
-      { name: "VPN", icon: "🔒" },
-      { name: "Load Balancing", icon: "⚖️" },
-      { name: "Route 53", icon: "🛤️" }
+      { name: "TCP/IP", icon: "🌐", desc: "Packet analysis with tcpdump, connection troubleshooting, and MTU optimization." },
+      { name: "DNS", icon: "🌐", desc: "Resolution debugging, Route 53 configurations, and split-horizon DNS." },
+      { name: "VPN", icon: "🔒", desc: "Site-to-site VPN, IPsec tunnels, and hybrid connectivity." },
+      { name: "Load Balancing", icon: "⚖️", desc: "ALB/NLB configuration, target group health, and sticky sessions." },
+      { name: "Route 53", icon: "🛤️", desc: "DNS routing policies, health checks, and failover configurations." }
     ]
   },
 
@@ -342,7 +341,7 @@ const CONTENT = {
   // DEBUG / "UNDER THE HOOD" PANEL
   // ---------------------------------------------------------------
   debug: {
-    builtWith: ["HTML5", "CSS3", "Vanilla JS", "IntersectionObserver", "GitHub Pages"],
+    builtWith: ["HTML5", "CSS3", "Vanilla JS", "Canvas API", "IntersectionObserver", "GitHub Pages"],
     accessibility:
       "Semantic HTML, ARIA labels, keyboard navigable, responsive 320px–4K, prefers-reduced-motion respected.",
     note: "No frameworks. No dependencies. Just HTML, CSS, and JS."

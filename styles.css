@@ -957,6 +957,93 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 
+/* ------------------------------- INTERACTIVE CANVAS ------------------------------- */
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ------------------------------- 3D TILT CARDS ------------------------------- */
+[data-tilt] {
+  perspective: 800px;
+  position: relative;
+}
+.tilt-inner {
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+}
+
+/* ------------------------------- CARD GLOW FOLLOW ------------------------------- */
+.card-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    300px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+    rgba(126, 231, 135, 0.12),
+    transparent 70%
+  );
+}
+[data-glow]:hover .card-glow { opacity: 1; }
+
+/* ------------------------------- SKILL MODAL ------------------------------- */
+.skill-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 200;
+}
+.skill-modal.is-open { opacity: 1; pointer-events: auto; }
+.skill-modal__content {
+  background: var(--bg-panel);
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 0 40px rgba(126, 231, 135, 0.1);
+}
+.skill-modal__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  color: var(--fg-dim);
+}
+.skill-modal__close:hover { color: var(--fg); }
+.skill-modal__title {
+  font-family: var(--mono);
+  font-size: 1.25rem;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.skill-modal__desc {
+  color: var(--fg-dim);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+/* ------------------------------- ACTIVE NAV ------------------------------- */
+.nav__links a.is-active {
+  color: var(--accent);
+}
+.nav__links a.is-active::after {
+  width: 100%;
+}
+
 /* ------------------------------- REDUCED MOTION ------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -967,4 +1054,5 @@ body {
   }
   [data-reveal] { opacity: 1; transform: none; }
   .bg-orbs { display: none; }
+  #particles { display: none; }
 }
