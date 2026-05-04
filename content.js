@@ -318,7 +318,7 @@ const CONTENT = {
         icon: "💼",
         label: "LinkedIn",
         value: "susmit-kallurkar",
-        href: "https://www.linkedin.com/in/susmit-kallurkar"
+        href: "https://www.linkedin.com/in/susmitkallurkar/"
       },
       {
         icon: "🐙",
