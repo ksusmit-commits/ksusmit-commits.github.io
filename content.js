@@ -209,22 +209,6 @@ const CONTENT = {
       badge: "🐧"
     },
     {
-      title: "Terraform Associate",
-      issuer: "HashiCorp",
-      date: "2024",
-      expires: "",
-      link: "https://www.credly.com/users/susmit-kallurkar",
-      badge: "🏗️"
-    },
-    {
-      title: "Chaos Engineering Principles",
-      issuer: "",
-      date: "2024",
-      expires: "",
-      link: "",
-      badge: "👹"
-    },
-    {
       title: "Linux Bootcamp — Advanced System Administration",
       issuer: "",
       date: "2020",
