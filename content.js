@@ -311,8 +311,8 @@ const CONTENT = {
       {
         icon: "✉️",
         label: "Email",
-        value: "kallurkar.susmit@gmail.com",
-        href: "mailto:kallurkar.susmit@gmail.com"
+        value: "kallurkarsusmit@gmail.com",
+        href: "mailto:kallurkarsusmit@gmail.com"
       },
       {
         icon: "💼",
