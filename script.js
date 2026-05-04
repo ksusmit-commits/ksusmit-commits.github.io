@@ -10,7 +10,8 @@
  *  5. Typed terminal intro
  *  6. Back-to-top button
  *  7. Debug panel with perf metrics
- *  8. 4 easter eggs: Konami, logo clicks, sudo sparkles, console welcome
+ *  8. 8 easter eggs
+ *  9. Dynamic features: scroll progress, time greeting, animated counters
  */
 
 (function () {
@@ -33,7 +34,13 @@
   // ========================================================
   function renderHero() {
     const h = CONTENT.hero;
-    $(".hero__greeting").textContent = h.greeting;
+    // Dynamic greeting based on time of day
+    const hour = new Date().getHours();
+    let greeting = h.greeting;
+    if (hour < 12) greeting = "Good morning, I'm";
+    else if (hour < 18) greeting = "Good afternoon, I'm";
+    else greeting = "Good evening, I'm";
+    $(".hero__greeting").textContent = greeting;
     $("#hero-name").textContent = h.name;
     $(".hero__title").textContent = h.title;
     $(".hero__subtitle").textContent = h.subtitle;
@@ -900,6 +907,93 @@
     initTabEgg();
     initRightClickEgg();
     initFooterEgg();
+
+    // 4. dynamic features
+    initScrollProgress();
+    initAnimatedCounters();
+    initMouseGlow();
+    initStaggeredReveal();
+  }
+
+  // ========================================================
+  // 10. DYNAMIC FEATURES
+  // ========================================================
+
+  // Scroll progress bar at top of page
+  function initScrollProgress() {
+    const bar = document.createElement("div");
+    bar.className = "scroll-progress";
+    document.body.appendChild(bar);
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollTop = window.scrollY;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+          bar.style.width = progress + "%";
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+
+  // Animated counters for stats (years, projects, etc.)
+  function initAnimatedCounters() {
+    const counters = $$("[data-count]");
+    if (!counters.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.getAttribute("data-count"), 10);
+          const suffix = el.getAttribute("data-suffix") || "";
+          let current = 0;
+          const step = Math.max(1, Math.floor(target / 40));
+          const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+              current = target;
+              clearInterval(timer);
+            }
+            el.textContent = current + suffix;
+          }, 30);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach((c) => io.observe(c));
+  }
+
+  // Subtle mouse glow that follows cursor on hero section
+  function initMouseGlow() {
+    if (prefersReducedMotion) return;
+    const hero = $(".hero");
+    if (!hero) return;
+    const glow = document.createElement("div");
+    glow.className = "hero-mouse-glow";
+    hero.appendChild(glow);
+    hero.addEventListener("mousemove", (e) => {
+      const rect = hero.getBoundingClientRect();
+      glow.style.left = (e.clientX - rect.left) + "px";
+      glow.style.top = (e.clientY - rect.top) + "px";
+      glow.style.opacity = "1";
+    });
+    hero.addEventListener("mouseleave", () => {
+      glow.style.opacity = "0";
+    });
+  }
+
+  // Staggered reveal for grid items
+  function initStaggeredReveal() {
+    const grids = $$(".skills__items, .cert__grid, .projects__grid, .contact__grid");
+    grids.forEach((grid) => {
+      const items = [...grid.children];
+      items.forEach((item, i) => {
+        item.style.transitionDelay = (i * 0.05) + "s";
+      });
+    });
   }
 
   if (document.readyState === "loading") {
