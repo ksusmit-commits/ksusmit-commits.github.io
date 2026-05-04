@@ -116,36 +116,55 @@ const CONTENT = {
       { name: "IAM", icon: "🔐", desc: "Identity and access management — policies, roles, cross-account access, and least-privilege design." },
       { name: "CloudWatch", icon: "📊", desc: "Metrics, alarms, dashboards, Logs Insights, and automated remediation via CloudWatch Actions." },
       { name: "Systems Manager", icon: "🛠️", desc: "Automation documents, Run Command, Session Manager, and patch management at scale." },
-      { name: "Migration Services", icon: "🚚", desc: "MGN replication agent configuration, cutover planning, and lift-and-shift migrations." }
+      { name: "Migration Services", icon: "🚚", desc: "MGN replication agent configuration, cutover planning, and lift-and-shift migrations." },
+      { name: "Lambda", icon: "λ", desc: "Serverless compute — event-driven architectures, cold start optimization, and custom runtimes." },
+      { name: "ECS/EKS", icon: "📦", desc: "Container orchestration on AWS — task definitions, service scaling, and Fargate deployments." },
+      { name: "RDS", icon: "🗄️", desc: "Managed databases — Multi-AZ, read replicas, parameter tuning, and failover troubleshooting." },
+      { name: "CloudTrail", icon: "🔍", desc: "API audit logging, security event investigation, and compliance monitoring." },
+      { name: "Auto Scaling", icon: "📐", desc: "Dynamic scaling policies, predictive scaling, and capacity planning for variable workloads." }
     ],
     infrastructure_as_code: [
       { name: "Terraform", icon: "🏗️", desc: "Multi-region IaC with modules, state management, and drift detection." },
       { name: "CloudFormation", icon: "📜", desc: "Stack design, nested stacks, custom resources, and change sets." },
-      { name: "Ansible", icon: "⚙️", desc: "Configuration management, playbooks, and fleet-wide automation." }
+      { name: "Ansible", icon: "⚙️", desc: "Configuration management, playbooks, and fleet-wide automation." },
+      { name: "CDK", icon: "🧱", desc: "AWS Cloud Development Kit — type-safe infrastructure definitions in Python and TypeScript." }
     ],
     containers_and_orchestration: [
       { name: "Kubernetes", icon: "☸️", desc: "Pod scheduling, service mesh, and EKS cluster operations." },
-      { name: "Docker", icon: "🐳", desc: "Container builds, multi-stage Dockerfiles, and image optimization." }
+      { name: "Docker", icon: "🐳", desc: "Container builds, multi-stage Dockerfiles, and image optimization." },
+      { name: "Helm", icon: "⎈", desc: "Chart templating, release management, and Kubernetes package deployment." }
     ],
     observability: [
       { name: "Prometheus", icon: "🔥", desc: "Metrics collection, PromQL queries, and alerting rules for SLO tracking." },
       { name: "Grafana", icon: "📈", desc: "Dashboard design for real-time SLI visualization across enterprise workloads." },
       { name: "Datadog", icon: "🐕", desc: "APM, log aggregation, and infrastructure monitoring." },
       { name: "Chaos Engineering", icon: "👹", desc: "Gremlin-based fault injection to validate system resilience." },
-      { name: "SLO / SLI design", icon: "🎯", desc: "Error budgeting, burn-rate alerts, and reliability target frameworks." }
+      { name: "SLO / SLI design", icon: "🎯", desc: "Error budgeting, burn-rate alerts, and reliability target frameworks." },
+      { name: "ELK Stack", icon: "🦌", desc: "Elasticsearch, Logstash, Kibana — centralized log analysis and search." },
+      { name: "X-Ray", icon: "🔬", desc: "Distributed tracing for microservices — latency analysis and service maps." }
     ],
     os_and_scripting: [
       { name: "Linux", icon: "🐧", desc: "Deep system administration — kernel tuning, systemd, performance profiling with perf and strace." },
       { name: "Bash", icon: "💻", desc: "Shell scripting for automation, log parsing, and operational tooling." },
       { name: "Python", icon: "🐍", desc: "Automation scripts, boto3 SDK, data processing, and CLI tools." },
-      { name: "Go", icon: "🐹", desc: "Systems programming and CLI tool development." }
+      { name: "Go", icon: "🐹", desc: "Systems programming and CLI tool development." },
+      { name: "Git", icon: "🌿", desc: "Version control workflows — branching strategies, rebasing, and CI/CD integration." },
+      { name: "SQL", icon: "🗃️", desc: "Query optimization, schema design, and database troubleshooting across RDS and Aurora." }
     ],
     networking: [
       { name: "TCP/IP", icon: "🌐", desc: "Packet analysis with tcpdump, connection troubleshooting, and MTU optimization." },
-      { name: "DNS", icon: "🌐", desc: "Resolution debugging, Route 53 configurations, and split-horizon DNS." },
+      { name: "DNS", icon: "🌍", desc: "Resolution debugging, Route 53 configurations, and split-horizon DNS." },
       { name: "VPN", icon: "🔒", desc: "Site-to-site VPN, IPsec tunnels, and hybrid connectivity." },
       { name: "Load Balancing", icon: "⚖️", desc: "ALB/NLB configuration, target group health, and sticky sessions." },
-      { name: "Route 53", icon: "🛤️", desc: "DNS routing policies, health checks, and failover configurations." }
+      { name: "Route 53", icon: "🛤️", desc: "DNS routing policies, health checks, and failover configurations." },
+      { name: "CloudFront", icon: "🚀", desc: "CDN distribution, cache behaviors, origin failover, and edge functions." },
+      { name: "Transit Gateway", icon: "🔀", desc: "Hub-and-spoke network architecture, inter-VPC routing, and multi-account connectivity." }
+    ],
+    security: [
+      { name: "KMS", icon: "🔑", desc: "Encryption key management, envelope encryption, and cross-account key sharing." },
+      { name: "WAF", icon: "🛡️", desc: "Web application firewall rules, rate limiting, and bot mitigation." },
+      { name: "GuardDuty", icon: "👁️", desc: "Threat detection, anomaly monitoring, and automated security findings." },
+      { name: "Security Hub", icon: "🏛️", desc: "Centralized security posture management and compliance checks across accounts." }
     ]
   },
 
