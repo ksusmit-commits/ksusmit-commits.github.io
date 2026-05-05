@@ -516,14 +516,16 @@
     let clicks = 0;
     let timer;
     logo.addEventListener("click", (e) => {
-      e.preventDefault();
       clicks++;
       clearTimeout(timer);
       timer = setTimeout(() => (clicks = 0), 1500);
       if (clicks >= 5) {
+        e.preventDefault();
         clicks = 0;
         markEgg("logo");
         logoBurst(logo);
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
     });
   }
